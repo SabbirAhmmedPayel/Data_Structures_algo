@@ -19,7 +19,8 @@ public:
 
     vector<int> dijkstra(int src) {
         vector<int> dist(V, INT_MAX);
-        priority_queue<pair<int, int>, vector<pair<int, int>>, greater<>> pq;
+        priority_queue<pair<int, int>, 
+        vector<pair<int, int>>, greater<>> pq;
 
         dist[src] = 0;
         pq.push({0, src});
