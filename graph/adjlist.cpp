@@ -52,6 +52,17 @@ public:
             }
         }
     }
+    vector<vector<int>> convertToAdjMatrix() {
+        
+        vector<vector<int>> adjMatrix(V, vector<int>(V, 0));
+        for (int u = 0; u < V; u++) {
+            for (int v : adjList[u]) {
+                adjMatrix[u][v] = 1;  
+                
+            }
+        }
+        return adjMatrix;
+    }
 
     void resetVisited() {
         fill(visited.begin(), visited.end(), false);
