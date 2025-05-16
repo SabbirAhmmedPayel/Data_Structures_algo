@@ -4,57 +4,67 @@
 #include <climits>
 using namespace std;
 
+const int INF = INT_MAX;
 
-class Graph {
-    int V;
-    vector<vector<pair<int, int>>> adj;
-
+class Compare {
 public:
-    Graph(int v) : V(v), adj(v) {}
-
-    void addEdge(int u, int v, int w) {
-        adj[u].push_back({v, w});
-        adj[v].push_back({u, w});
-    }
-
-    vector<int> dijkstra(int src) {
-        vector<int> dist(V, INT_MAX);
-        priority_queue<pair<int, int>, 
-        vector<pair<int, int>>, greater<>> pq;
-
-        dist[src] = 0;
-        pq.push({0, src});
-        while (!pq.empty()) {
-            int u = pq.top().second;
-            pq.pop();
-
-            for (size_t i = 0; i < adj[u].size(); i++) {
-                int v = adj[u][i].first;
-                int wt = adj[u][i].second;
-
-                if (dist[v] > dist[u] + wt) {
-                    dist[v] = dist[u] + wt;
-                    pq.push({dist[v], v});
-                }
-            }
-        }
-
-        return dist;
+    bool operator()(pair<int, int>& a, pair<int, int>& b) {
+        return a.second > b.second; 
     }
 };
 
+void dijkstra(const vector<vector<int>>& graph, int src) {
+    int V = graph.size();
+    vector<int> dist(V, INF);
+    dist[src] = 0;
+
+    priority_queue<pair<int, int>, vector<pair<int, int>>, Compare> pq;
+    pq.push({src, 0}); // {node, distance}
+
+    while (!pq.empty()) {
+        int u = pq.top().first;
+        int d_u = pq.top().second;
+        pq.pop();
+
+        if (d_u > dist[u]) continue;
+
+        for (int v = 0; v < V; ++v) {
+            if (graph[u][v] > 0) {  // There is an edge
+                int weight = graph[u][v];
+                if (dist[u] + weight < dist[v]) {
+                    dist[v] = dist[u] + weight;
+                    pq.push({v, dist[v]});
+                }
+            }
+        }
+    }
+
+   
+    cout << "Shortest distances from node " << src << ":\n";
+    for (int i = 0; i < V; ++i) {
+        if (dist[i] == INF)
+            cout << "Node " << i << ": INF\n";
+        else
+            cout << "Node " << i << ": " << dist[i] << "\n";
+    }
+}
+
 int main() {
-    Graph g(5);
-    g.addEdge(0, 1, 4);
-    g.addEdge(0, 2, 8);
-    g.addEdge(1, 4, 6);
-    g.addEdge(2, 3, 2);
-    g.addEdge(3, 4, 10);
+    int V;
+    cout << "Enter number of vertices: ";
+    cin >> V;
 
-    vector<int> result = g.dijkstra(0);
+    vector<vector<int>> graph(V, vector<int>(V, 0));
+    cout << "Enter adjacency matrix (enter 0 for no edge):\n";
+    for (int i = 0; i < V; ++i)
+        for (int j = 0; j < V; ++j)
+            cin >> graph[i][j];
 
-    for (int dist : result)
-        cout << dist << " ";
+    int src;
+    cout << "Enter source vertex (0-based index): ";
+    cin >> src;
+
+    dijkstra(graph, src);
 
     return 0;
 }
