@@ -25,13 +25,18 @@ struct DSU {
     }
 
     bool unite(int x, int y) {
-        int a = find(x), b = find(y);
-        if (a == b) return false;
-        if (rank[a] < rank[b]) swap(a, b);
+    int a = find(x), b = find(y);
+    if (a == b) return false;
+
+    if (rank[a] < rank[b]) {
+        parent[a] = b;
+    } else {
         parent[b] = a;
         if (rank[a] == rank[b]) rank[a]++;
-        return true;
     }
+
+    return true;
+}
 };
 
 void showMST(const vector<vector<int>>& adj) {
