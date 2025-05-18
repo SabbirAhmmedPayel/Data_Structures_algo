@@ -18,11 +18,19 @@ struct DSU {
             parent[i] = i;
     }
 
-    int find(int x) {
-        if (x != parent[x])
-            parent[x] = find(parent[x]);
-        return parent[x];
+
+
+   int find(int x) {
+    if (parent[x] == x) {
+        return x;
     }
+
+    int root = find(parent[x]);
+    parent[x] = root; // Path compression
+    return root;
+}
+
+
 
     bool unite(int x, int y) {
     int a = find(x), b = find(y);
