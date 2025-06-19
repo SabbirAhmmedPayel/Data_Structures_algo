@@ -1,39 +1,39 @@
 #include <iostream>
 #include <vector>
 #include <algorithm>
-#include <cstring>
 using namespace std;
 
-const int MAX = 1000;
-int capacity[MAX][MAX];   // capacity[u][v]
-vector<int> adj[MAX];     // adjacency list
-bool visited[MAX];
+#define vi vector<int>
+#define vii vector<vector<int>>
 
-int dfs(int u, int t, int flow) {
+int dfs(int u, int t, int flow, int n, vii &graph, vi &visited) {
     if (u == t) return flow;
     visited[u] = true;
 
-    for (int v : adj[u]) {
-        if (!visited[v] && capacity[u][v] > 0) {
-            int min_cap = min(flow, capacity[u][v]);
-            int pushed = dfs(v, t, min_cap);
-            if (pushed > 0) {
-                capacity[u][v] -= pushed;
-                capacity[v][u] += pushed;
-                return pushed;
+    for (int v = 0; v < n; ++v) {
+        if (!visited[v] && graph[u][v] > 0) {
+            int min_cap = min(flow, graph[u][v]);
+            int currflow = dfs(v, t, min_cap, n, graph, visited);
+            if (currflow > 0) {
+                graph[u][v] -= currflow;
+                graph[v][u] += currflow;
+                return currflow;
             }
         }
     }
     return 0;
 }
 
-int fordFulkerson(int s, int t, int n) {
+int fordFulkerson(int s, int t, int n, vii &graph) {
     int maxFlow = 0;
+    vi visited(n);
 
     while (true) {
-        memset(visited, false, sizeof(visited));
-        int flow = dfs(s, t, 1e9);  // find an augmenting path
+        for (int i = 0; i < n; ++i)  visited[i] = 0;
+
+        int flow = dfs(s, t, 1e9, n, graph, visited);
         if (flow == 0) break;
+
         maxFlow += flow;
     }
 
@@ -41,20 +41,17 @@ int fordFulkerson(int s, int t, int n) {
 }
 
 int main() {
-    int n, m;
-    cin >> n >> m; // number of nodes and edges
-
-    for (int i = 0; i < m; ++i) {
-        int u, v, cap;
-        cin >> u >> v >> cap;
-        capacity[u][v] += cap;
-        adj[u].push_back(v);
-        adj[v].push_back(u); // add reverse edge for residual graph
-    }
+    int n;
+    cin >> n;
+    vii graph(n, vi(n));
+    for (int i = 0; i < n; ++i)
+        for (int j = 0; j < n; ++j)
+            cin >> graph[i][j];
 
     int s, t;
     cin >> s >> t;
-    cout << "Maximum Flow: " << fordFulkerson(s, t, n) << "\n";
+
+    cout << "Maximum Flow: " << fordFulkerson(s, t, n, graph) << "\n";
 
     return 0;
 }
