@@ -1,61 +1,77 @@
-#include <iostream>
-#include <list>
-#include <cmath>
-#include <climits>
-#include<vector>
-#include <algorithm>
-
+#include <bits/stdc++.h>
 using namespace std;
 
-class Node {
+class Node
+{
 public:
     int value;
-    Node* parent;
-    list<Node*> children;
+    Node *parent;
+    list<Node *> children;
     int degree;
 
-    Node(int val) {
+    Node(int val)
+    {
         value = val;
         parent = nullptr;
         degree = 0;
     }
 };
 
-class BinomialHeap {
+class BinomialHeap
+{
 public:
-    list<Node*> trees;
-    Node* min_node;
+    list<Node *> trees;
+    Node *min_node;
     int count;
 
-    BinomialHeap() {
+    BinomialHeap()
+    {
         min_node = nullptr;
         count = 0;
     }
 
-    bool is_empty() {
+    bool is_empty()
+    {
         return min_node == nullptr;
     }
 
-    void insert(int value) {
-        Node* node = new Node(value);
+    void insert(int value)
+    {
+        Node *node = new Node(value);
         BinomialHeap temp;
         temp.trees.push_back(node);
         temp.count = 1;
-        merge(temp);
+        unionp(temp);
     }
 
-    int get_min() {
-        if (min_node == nullptr) return INT_MIN;
+    int get_min()
+    {
+        if (min_node == nullptr)
+            return INT_MIN;
         return min_node->value;
     }
 
-    int extract_min() {
-        if (min_node == nullptr) return INT_MIN;
+
+     void unionp(BinomialHeap &other)
+    {
+        for (Node *node : other.trees)
+        {
+            trees.push_back(node);
+        }
+        count += other.count;
+        combinee();
+    }
+
+    int extract_min()
+    {
+        if (min_node == nullptr)
+            return INT_MIN;
 
         trees.remove(min_node);
 
         BinomialHeap temp;
-        for (Node* child : min_node->children) {
+        for (Node *child : min_node->children)
+        {
             child->parent = nullptr;
             temp.trees.push_back(child);
         }
@@ -64,45 +80,52 @@ public:
         int minVal = min_node->value;
         delete min_node;
 
-        merge(temp);
+        unionp(temp);
         count--;
 
         return minVal;
     }
 
-    void merge(BinomialHeap& other) {
-        for (Node* node : other.trees) {
-            trees.push_back(node);
-        }
-        count += other.count;
-        consolidate();
-    }
+   
 
-    void consolidate() {
-        if (trees.empty()) {
+    void combinee()
+    {
+        if (trees.empty())
+        {
             min_node = nullptr;
             return;
         }
 
-        int max_degree = (count > 0) ? static_cast<int>(log2(count)) + 2 : 2;
-        vector<Node*> degree_map(max_degree, nullptr);
+        int max_degree =  static_cast<int>(log2(count)) + 2 ;
 
-        for (auto it = trees.begin(); it != trees.end();) {
-            Node* current = *it;
+        // hash_map  degree : pointer
+        vector<Node *> degree_map(max_degree, nullptr);
+
+        // searching for duplicate same degree trees
+        for (auto it = trees.begin(); it != trees.end();)
+        {
+            Node *current = *it;
             int d = current->degree;
 
-            while (degree_map[d] != nullptr) {
-                Node* other = degree_map[d];
+            while (degree_map[d] != nullptr)// duplicate found
+            {
+                Node *other = degree_map[d];
                 degree_map[d] = nullptr;
 
-                auto remove_it = find(trees.begin(), trees.end(), other);
-                if (remove_it != trees.end()) trees.erase(remove_it);
+                for (auto jt = trees.begin(); jt != trees.end(); ++jt)
+                {
+                    if (*jt == other)
+                    {
+                        trees.erase(jt);
+                        break;
+                    }
+                }
 
                 if (current->value > other->value)
-                    swap(current, other);
+                    swap(current, other); // bigger one is parent 
 
-                link(current, other);
-                d = current->degree;
+                link(current, other); // make current parent of other 
+                d = current->degree; // new increased degree
             }
 
             degree_map[d] = current;
@@ -112,8 +135,10 @@ public:
         trees.clear();
         min_node = nullptr;
 
-        for (Node* node : degree_map) {
-            if (node != nullptr) {
+        for (Node *node : degree_map)
+        {
+            if (node != nullptr)
+            {
                 trees.push_back(node);
                 if (min_node == nullptr || node->value < min_node->value)
                     min_node = node;
@@ -121,18 +146,22 @@ public:
         }
     }
 
-    void link(Node* parent, Node* child) {
+    void link(Node *parent, Node *child)
+    {
         child->parent = parent;
         parent->children.push_back(child);
         parent->degree++;
     }
 
-    void decrease_key(Node* node, int new_value) {
-        if (new_value > node->value) return;
+    void decrease_key(Node *node, int new_value)
+    {
+        if (new_value > node->value)
+            return;
         node->value = new_value;
-        Node* parent = node->parent;
+        Node *parent = node->parent;
 
-        while (parent != nullptr && node->value < parent->value) {
+        while (parent != nullptr && node->value < parent->value)
+        {
             swap(node->value, parent->value);
             node = parent;
             parent = node->parent;
@@ -142,32 +171,123 @@ public:
             min_node = node;
     }
 
-    void delete_node(Node* node) {
+    void delete_node(Node *node)
+    {
         decrease_key(node, INT_MIN);
         extract_min();
     }
 
-    int size() {
+    int size()
+    {
         return count;
     }
 
-    void print_tree(Node* node, int depth) {
-        for (int i = 0; i < depth; i++) cout << "  ";
-        cout << node->value << "\n";
-        for (Node* child : node->children) {
-            print_tree(child, depth + 1);
+    // int get_height_tree(Node *root)
+    // {  
+
+    //     if (!root)
+    //         return 0;
+    //         int max = 0 ; 
+
+    //     for (Node *child : root->children)
+    //     {
+    //         max =   std::max(max,get_height_tree(child)) ; 
+    //     }
+    //     return 1 +max ;
+    // }
+
+ 
+
+    void levelOrder(Node *root, int level, vector<vector<int>> &res)
+    {
+        if (!root)
+            return;
+
+        if (res.size() <= level)
+        {
+            res.push_back({});
+        }
+        res[level].push_back(root->value);
+        for (Node *child : root->children)
+        {
+            levelOrder(child, level + 1, res);
         }
     }
 
-    void printHeap() {
-        cout << "Heap Trees:\n";
-        for (Node* tree : trees) {
-            print_tree(tree, 0);
-            cout << "------\n";
+    vector<vector<int>> level(Node *node)
+    {
+        vector<vector<int>> res;
+        vector<int> restemp;
+
+
+        levelOrder(node, 0, res);
+
+        for (int i = 0; i < res.size(); i++)
+        {
+            cout << "level " << i << ": ";
+            for (int j = 0; j < res[i].size(); j++)
+            {   
+                restemp.push_back(res[i][j]) ;
+                reverse(restemp.begin(),restemp.end()) ;
+               
+                
+            }
+             for (int y : restemp){
+                    cout << y  << " ";
+                } restemp.clear() ; 
+            cout << endl;
         }
+        return res;
     }
 
-   
+    void printHeap()
+    {
+        cout << "Printing Binomial Heap...\n";
+        int tree_index = 0;
+        for (Node *tree : trees)
+        {
+            cout << "Binomial Tree, B" << tree->degree  << endl;
+            level(tree);
+            tree_index++;
+        }
+
+        cout << endl;
+        
+    }
+
+    Node *findNodeInTree(Node *root, int value)
+    {
+        if (root->value == value)
+            return root;
+        for (Node *child : root->children)
+        {
+            Node *res = findNodeInTree(child, value);
+            if (res != nullptr)
+                return res;
+        }
+        return nullptr;
+    }
+
+    Node *findNode(int value)
+    {
+        for (Node *root : trees)
+        {
+            Node *res = findNodeInTree(root, value);
+            if (res != nullptr)
+                return res;
+        }
+        return nullptr;
+    }
+
+    void decrease(int n, int m)
+    {
+        if (n < m)
+            return;
+
+        Node *res = findNode(n);
+        decrease_key(res, m);
+    }
+
 };
 
 int main() {
