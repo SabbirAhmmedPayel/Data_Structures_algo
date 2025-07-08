@@ -1,0 +1,275 @@
+Load Factor: 0.4
+Hash mode: SDBM
+Collisions (Chaining): 1724
+Before Deletion:
+  Avg search time: 297 ns
+After Deletion:
+  Avg search time: 239 ns
+Probing mode: LINEAR
+Collisions: 3382
+Before Deletion:
+  Avg search time: 205 ns
+  Avg probes: 1
+After Deletion:
+  Avg search time: 124 ns
+  Avg probes: 2
+Probing mode: DOUBLE HASHING
+Collisions: 2811
+Before Deletion:
+  Avg search time: 320 ns
+  Avg probes: 1
+After Deletion:
+  Avg search time: 177 ns
+  Avg probes: 2
+Hash mode: POLYNOMIAL ROLLING
+Collisions (Chaining): 1788
+Before Deletion:
+  Avg search time: 505 ns
+After Deletion:
+  Avg search time: 399 ns
+Probing mode: LINEAR
+Collisions: 3402
+Before Deletion:
+  Avg search time: 297 ns
+  Avg probes: 1
+After Deletion:
+  Avg search time: 281 ns
+  Avg probes: 2
+Probing mode: DOUBLE HASHING
+Collisions: 2887
+Before Deletion:
+  Avg search time: 538 ns
+  Avg probes: 1
+After Deletion:
+  Avg search time: 325 ns
+  Avg probes: 2
+---------------------------------------------
+Load Factor: 0.5
+Hash mode: SDBM
+Collisions (Chaining): 2101
+Before Deletion:
+  Avg search time: 417 ns
+After Deletion:
+  Avg search time: 484 ns
+Probing mode: LINEAR
+Collisions: 4982
+Before Deletion:
+  Avg search time: 221 ns
+  Avg probes: 1
+After Deletion:
+  Avg search time: 238 ns
+  Avg probes: 3
+Probing mode: DOUBLE HASHING
+Collisions: 3884
+Before Deletion:
+  Avg search time: 233 ns
+  Avg probes: 1
+After Deletion:
+  Avg search time: 185 ns
+  Avg probes: 2
+Hash mode: POLYNOMIAL ROLLING
+Collisions (Chaining): 2143
+Before Deletion:
+  Avg search time: 154 ns
+After Deletion:
+  Avg search time: 274 ns
+Probing mode: LINEAR
+Collisions: 4888
+Before Deletion:
+  Avg search time: 166 ns
+  Avg probes: 2
+After Deletion:
+  Avg search time: 144 ns
+  Avg probes: 3
+Probing mode: DOUBLE HASHING
+Collisions: 3893
+Before Deletion:
+  Avg search time: 328 ns
+  Avg probes: 1
+After Deletion:
+  Avg search time: 220 ns
+  Avg probes: 2
+---------------------------------------------
+Load Factor: 0.6
+Hash mode: SDBM
+Collisions (Chaining): 2447
+Before Deletion:
+  Avg search time: 156 ns
+After Deletion:
+  Avg search time: 212 ns
+Probing mode: LINEAR
+Collisions: 7655
+Before Deletion:
+  Avg search time: 115 ns
+  Avg probes: 2
+After Deletion:
+  Avg search time: 160 ns
+  Avg probes: 4
+Probing mode: DOUBLE HASHING
+Collisions: 5145
+Before Deletion:
+  Avg search time: 200 ns
+  Avg probes: 2
+After Deletion:
+  Avg search time: 200 ns
+  Avg probes: 3
+Hash mode: POLYNOMIAL ROLLING
+Collisions (Chaining): 2415
+Before Deletion:
+  Avg search time: 124 ns
+After Deletion:
+  Avg search time: 265 ns
+Probing mode: LINEAR
+Collisions: 7441
+Before Deletion:
+  Avg search time: 179 ns
+  Avg probes: 2
+After Deletion:
+  Avg search time: 165 ns
+  Avg probes: 4
+Probing mode: DOUBLE HASHING
+Collisions: 5068
+Before Deletion:
+  Avg search time: 297 ns
+  Avg probes: 1
+After Deletion:
+  Avg search time: 228 ns
+  Avg probes: 3
+---------------------------------------------
+Load Factor: 0.7
+Hash mode: SDBM
+Collisions (Chaining): 2854
+Before Deletion:
+  Avg search time: 125 ns
+After Deletion:
+  Avg search time: 136 ns
+Probing mode: LINEAR
+Collisions: 11288
+Before Deletion:
+  Avg search time: 194 ns
+  Avg probes: 2
+After Deletion:
+  Avg search time: 169 ns
+  Avg probes: 5
+Probing mode: DOUBLE HASHING
+Collisions: 7125
+Before Deletion:
+  Avg search time: 243 ns
+  Avg probes: 2
+After Deletion:
+  Avg search time: 208 ns
+  Avg probes: 3
+Hash mode: POLYNOMIAL ROLLING
+Collisions (Chaining): 2820
+Before Deletion:
+  Avg search time: 116 ns
+After Deletion:
+  Avg search time: 188 ns
+Probing mode: LINEAR
+Collisions: 11616
+Before Deletion:
+  Avg search time: 192 ns
+  Avg probes: 2
+After Deletion:
+  Avg search time: 188 ns
+  Avg probes: 5
+Probing mode: DOUBLE HASHING
+Collisions: 7175
+Before Deletion:
+  Avg search time: 180 ns
+  Avg probes: 2
+After Deletion:
+  Avg search time: 217 ns
+  Avg probes: 4
+---------------------------------------------
+Load Factor: 0.8
+Hash mode: SDBM
+Collisions (Chaining): 3098
+Before Deletion:
+  Avg search time: 96 ns
+After Deletion:
+  Avg search time: 181 ns
+Probing mode: LINEAR
+Collisions: 18731
+Before Deletion:
+  Avg search time: 180 ns
+  Avg probes: 2
+After Deletion:
+  Avg search time: 255 ns
+  Avg probes: 8
+Probing mode: DOUBLE HASHING
+Collisions: 10136
+Before Deletion:
+  Avg search time: 175 ns
+  Avg probes: 2
+After Deletion:
+  Avg search time: 265 ns
+  Avg probes: 5
+Hash mode: POLYNOMIAL ROLLING
+Collisions (Chaining): 3105
+Before Deletion:
+  Avg search time: 111 ns
+After Deletion:
+  Avg search time: 127 ns
+Probing mode: LINEAR
+Collisions: 22627
+Before Deletion:
+  Avg search time: 528 ns
+  Avg probes: 3
+After Deletion:
+  Avg search time: 356 ns
+  Avg probes: 11
+Probing mode: DOUBLE HASHING
+Collisions: 9970
+Before Deletion:
+  Avg search time: 191 ns
+  Avg probes: 2
+After Deletion:
+  Avg search time: 276 ns
+  Avg probes: 5
+---------------------------------------------
+Load Factor: 0.9
+Hash mode: SDBM
+Collisions (Chaining): 3369
+Before Deletion:
+  Avg search time: 97 ns
+After Deletion:
+  Avg search time: 169 ns
+Probing mode: LINEAR
+Collisions: 49218
+Before Deletion:
+  Avg search time: 271 ns
+  Avg probes: 6
+After Deletion:
+  Avg search time: 834 ns
+  Avg probes: 31
+Probing mode: DOUBLE HASHING
+Collisions: 15242
+Before Deletion:
+  Avg search time: 199 ns
+  Avg probes: 2
+After Deletion:
+  Avg search time: 387 ns
+  Avg probes: 8
+Hash mode: POLYNOMIAL ROLLING
+Collisions (Chaining): 3434
+Before Deletion:
+  Avg search time: 120 ns
+After Deletion:
+  Avg search time: 189 ns
+Probing mode: LINEAR
+Collisions: 43475
+Before Deletion:
+  Avg search time: 260 ns
+  Avg probes: 5
+After Deletion:
+  Avg search time: 798 ns
+  Avg probes: 29
+Probing mode: DOUBLE HASHING
+Collisions: 15886
+Before Deletion:
+  Avg search time: 359 ns
+  Avg probes: 2
+After Deletion:
+  Avg search time: 380 ns
+  Avg probes: 9
